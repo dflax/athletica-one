@@ -6,10 +6,11 @@ As you work, you may have questions about how to proceed. You should assume in a
 ## Post-Build Actions
 After completing any unit of work (feature, fix, refactor, or doc update), always do these steps in a single commit — do not make a separate commit for `Project_Context.md`:
 
-1.  **Update `Project_Context.md` first** — add a phase log entry and reflect any relevant changes (new pages, changed structure, updated directories, new dependencies, etc.)
-2.  **Stage all files**: `git add .`
-3.  **Commit everything together** (code + docs) with the message convention below
-4.  **Push to origin master**: `git push origin master`
+1.  **Run local build and tests**: Run `npm run build` (and `npm test` when available) locally to ensure there are no TypeScript, linting, or prerendering errors.
+2.  **Update `Project_Context.md` first** — add a phase log entry and reflect any relevant changes (new pages, changed structure, updated directories, new dependencies, etc.)
+3.  **Stage all files**: `git add .`
+4.  **Commit everything together** (code + docs) with the message convention below
+5.  **Push to origin master**: `git push origin master`
 
 ### Commit Message Convention
 `Phase N Session N.M: Short description of what was done`

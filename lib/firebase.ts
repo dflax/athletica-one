@@ -11,6 +11,12 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-const app: FirebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-export const auth: Auth = getAuth(app);
-export const db: Firestore = getFirestore(app);
+// Only initialize if we have the config (prevents build errors on Vercel if env vars aren't set during build)
+const isConfigValid = !!firebaseConfig.apiKey;
+
+const app: FirebaseApp = (getApps().length === 0 && isConfigValid) 
+  ? initializeApp(firebaseConfig) 
+  : (getApps()[0] || {} as FirebaseApp);
+
+export const auth: Auth = isConfigValid ? getAuth(app) : {} as Auth;
+export const db: Firestore = isConfigValid ? getFirestore(app) : {} as Firestore;
