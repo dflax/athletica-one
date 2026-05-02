@@ -7,6 +7,7 @@ This project is the Practicum effort of David Lebovich for his work at Emet Clas
 - **Phase 1 Session 1.1**: Initial documentation setup. Created `GEMINI.md` and `Project_Context.md` skeleton.
 - **Phase 1 Session 1.2**: Populated project vision, core requirements, and technical specifications from the Practicum Project Definition V2.
 - **Phase 1 Session 1.3**: Updated README.md with Vercel deployment instructions and Firebase environment variables. Added .env.example.
+- **Phase 1 Session 1.4**: Fixed TypeScript build error in app/page.tsx. Converted lib files to .ts and added proper typing for Firebase Auth.
 
 ## Project Vision
 To create a responsive web application that serves as a central hub for scholastic athletes to manage their daily performance, nutrition, and scheduling. The app will transition from a personal tool to a multi-role platform for coaches, parents, and fans.
@@ -55,8 +56,8 @@ athletica-one/
 │   ├── layout.tsx
 │   └── page.tsx
 ├── lib/
-│   ├── firebase.js
-│   └── useAuth.js
+│   ├── firebase.ts
+│   └── useAuth.ts
 ├── public/
 │   ├── file.svg
 │   ├── globe.svg
