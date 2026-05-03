@@ -9,6 +9,7 @@ This project is the Practicum effort of David Lebovich for his work at Emet Clas
 - **Phase 1 Session 1.3**: Updated README.md with Vercel deployment instructions and Firebase environment variables. Added .env.example.
 - **Phase 1 Session 1.4**: Fixed TypeScript build error in app/page.tsx. Converted lib files to .ts and added proper typing for Firebase Auth.
 - **Phase 1 Session 1.5**: Fixed Firebase initialization error during build/prerender. Updated GEMINI.md to mandate local build verification.
+- **Phase 1 Session 1.6**: Improved Firebase Auth initialization and added diagnostic error handling to the login flow. Added type="button" to login buttons.
 
 ## Project Vision
 To create a responsive web application that serves as a central hub for scholastic athletes to manage their daily performance, nutrition, and scheduling. The app will transition from a personal tool to a multi-role platform for coaches, parents, and fans.

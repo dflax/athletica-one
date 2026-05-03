@@ -7,9 +7,20 @@ import { useAuth } from '@/lib/useAuth';
 export default function Dashboard() {
   const { user, loading } = useAuth();
 
-  const login = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
+  const login = async () => {
+    try {
+      console.log('Starting login...');
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      console.log('Login successful:', result.user);
+    } catch (error: any) {
+      console.error('Login error details:', {
+        code: error.code,
+        message: error.message,
+        customData: error.customData,
+      });
+      alert(`Login failed: ${error.message}`);
+    }
   };
 
   if (loading) return <div className="flex h-screen items-center justify-center">Loading Athletica...</div>;
@@ -29,7 +40,7 @@ export default function Dashboard() {
           <button onClick={() => signOut(auth)} className="text-sm text-gray-500 hover:text-red-500">Sign Out</button>
         </div>
         ) : (
-        <button onClick={login} className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium">Athlete Login</button>
+        <button type="button" onClick={login} className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium">Athlete Login</button>
         )}
       </header>
 
@@ -70,7 +81,7 @@ export default function Dashboard() {
       <div className="text-center py-20">
       <h2 className="text-3xl font-bold text-gray-800 mb-4">Your performance, centralized.</h2>
       <p className="text-gray-600 mb-8">Sign in to track your PRs, training, and nutrition.</p>
-      <button onClick={login} className="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-bold shadow-lg hover:bg-blue-700 transition">
+      <button type="button" onClick={login} className="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-bold shadow-lg hover:bg-blue-700 transition">
         Get Started
       </button>
       </div>
