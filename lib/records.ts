@@ -44,15 +44,21 @@ export async function addPersonalRecord(userId: string, eventName: string, recor
 
 export async function getPersonalRecords(userId: string): Promise<PersonalRecord[]> {
   if (!db || !('type' in db)) {
+    console.warn("getPersonalRecords: Database not initialized");
     return [];
   }
   
   try {
+    console.log(`Fetching records for userId: ${userId} from ${COLLECTION_NAME}`);
     const q = query(collection(db, COLLECTION_NAME), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
+    console.log(`Found ${querySnapshot.size} documents`);
+    
     const records: PersonalRecord[] = [];
     querySnapshot.forEach((doc) => {
-      records.push({ id: doc.id, ...doc.data() } as PersonalRecord);
+      const data = doc.data();
+      console.log(`Record ID: ${doc.id}, Data:`, data);
+      records.push({ id: doc.id, ...data } as PersonalRecord);
     });
     // Sort by eventName for now, or we could sort by createdAt
     return records.sort((a, b) => a.eventName.localeCompare(b.eventName));
