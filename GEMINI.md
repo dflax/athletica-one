@@ -35,7 +35,7 @@ Instead, fix the issue and then commit.
 ## Tech Stack
 *   **Framework**: Next.js 14 (App Router)
 *   **Hosting**: Vercel (auto-deploys from GitHub)
-*   **Database**: Supabase (PostgreSQL)
+*   **Database/Auth**: Firebase (Firestore & Authentication)
 *   **Styling**: Tailwind CSS
 *   **Language**: TypeScript
 *   **Font**: Inter (Google Fonts)
