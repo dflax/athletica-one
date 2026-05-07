@@ -40,6 +40,25 @@ Instead, fix the issue and then commit.
 *   **Language**: TypeScript
 *   **Font**: Inter (Google Fonts)
 
+## Firestore Security Rules
+To ensure users can only access their own data, apply these rules in the Firebase Console:
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow users to read/write their own data in any collection
+    match /{collection}/{document} {
+      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId || request.auth.uid == request.resource.data.userId;
+    }
+    
+    // Legacy support for nested user documents
+    match /users/{userId}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+```
+
 ## Project Structure
 ```text
 athletica-one/
