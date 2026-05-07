@@ -11,6 +11,7 @@ This project is the Practicum effort of David Lebovich for his work at Emet Clas
 - **Phase 1 Session 1.5**: Fixed Firebase initialization error during build/prerender. Updated GEMINI.md to mandate local build verification.
 - **Phase 1 Session 1.6**: Improved Firebase Auth initialization and added diagnostic error handling to the login flow. Added type="button" to login buttons.
 - **Phase 1 Session 1.7**: Fixed Uncaught TypeError in `useAuth` hook by adding safety checks for uninitialized Firebase Auth. Refined `firebase.ts` to handle missing environment variables gracefully.
+- **Phase 1 Session 1.8**: Updated site metadata in `app/layout.tsx` to set the title to "Athletica One" and updated the project description.
 
 ## Project Vision
 To create a responsive web application that serves as a central hub for scholastic athletes to manage their daily performance, nutrition, and scheduling. The app will transition from a personal tool to a multi-role platform for coaches, parents, and fans.
