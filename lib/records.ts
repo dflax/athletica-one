@@ -8,7 +8,7 @@ import {
   doc, 
   serverTimestamp 
 } from 'firebase/firestore';
-import { db } from './firebase';
+import { db, auth } from './firebase';
 
 export interface PersonalRecord {
   id?: string;
@@ -49,7 +49,10 @@ export async function getPersonalRecords(userId: string): Promise<PersonalRecord
   }
   
   try {
-    console.log(`Fetching records for userId: ${userId} from ${COLLECTION_NAME}`);
+    const currentUser = auth.currentUser;
+    console.log(`Fetching records for userId: ${userId}`);
+    console.log(`Current Auth User: ${currentUser ? currentUser.uid : 'NOT LOGGED IN'}`);
+
     const q = query(collection(db, COLLECTION_NAME), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
     console.log(`Found ${querySnapshot.size} documents`);
