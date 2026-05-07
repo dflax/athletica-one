@@ -22,6 +22,11 @@ export interface PersonalRecord {
 const COLLECTION_NAME = 'Performance_Records';
 
 export async function addPersonalRecord(userId: string, eventName: string, recordData: string, source: string = 'manual') {
+  if (!db || !('type' in db)) {
+    console.error("Firestore database is not initialized. Check your environment variables.");
+    throw new Error("Database not initialized");
+  }
+  
   try {
     const docRef = await addDoc(collection(db, COLLECTION_NAME), {
       userId,
@@ -38,6 +43,10 @@ export async function addPersonalRecord(userId: string, eventName: string, recor
 }
 
 export async function getPersonalRecords(userId: string): Promise<PersonalRecord[]> {
+  if (!db || !('type' in db)) {
+    return [];
+  }
+  
   try {
     const q = query(collection(db, COLLECTION_NAME), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
@@ -54,6 +63,10 @@ export async function getPersonalRecords(userId: string): Promise<PersonalRecord
 }
 
 export async function deletePersonalRecord(recordId: string) {
+  if (!db || !('type' in db)) {
+    throw new Error("Database not initialized");
+  }
+
   try {
     await deleteDoc(doc(db, COLLECTION_NAME, recordId));
   } catch (error) {

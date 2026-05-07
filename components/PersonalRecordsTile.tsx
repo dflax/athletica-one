@@ -57,8 +57,9 @@ export const PersonalRecordsTile: React.FC<PersonalRecordsTileProps> = ({ user }
       setRecordData('');
       setIsManualModalOpen(false);
       await fetchRecords();
-    } catch (error) {
-      alert("Failed to add record. Please try again.");
+    } catch (error: any) {
+      console.error("Manual add error:", error);
+      alert(`Failed to add record: ${error.message || 'Unknown error'}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -80,19 +81,29 @@ export const PersonalRecordsTile: React.FC<PersonalRecordsTileProps> = ({ user }
       
       if (data.records && data.records.length > 0) {
         // Add all scraped records to Firestore
+        let successCount = 0;
         for (const record of data.records) {
-          await addPersonalRecord(user.uid, record.eventName, record.recordData, 'milesplit');
+          try {
+            await addPersonalRecord(user.uid, record.eventName, record.recordData, 'milesplit');
+            successCount++;
+          } catch (err) {
+            console.error(`Failed to add scraped record ${record.eventName}:`, err);
+          }
         }
         setUrl('');
         setIsLinkModalOpen(false);
         await fetchRecords();
+        if (successCount < data.records.length) {
+          alert(`Imported ${successCount} of ${data.records.length} records. Some failed to save.`);
+        }
       } else if (data.error) {
         alert(`Scraping failed: ${data.error}`);
       } else {
         alert("No records found at that URL.");
       }
-    } catch (error) {
-      alert("Failed to scrape records. Please try again.");
+    } catch (error: any) {
+      console.error("Link import error:", error);
+      alert(`Failed to scrape records: ${error.message || 'Unknown error'}`);
     } finally {
       setIsSubmitting(false);
     }
