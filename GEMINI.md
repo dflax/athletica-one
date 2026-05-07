@@ -46,13 +46,12 @@ To ensure users can only access their own data, apply these rules in the Firebas
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow users to read/write documents in any collection if they own the record
-    match /{collection}/{document} {
-      allow read, write: if request.auth != null && 
-        (
-          (resource == null && request.resource.data.userId == request.auth.uid) || 
-          (resource != null && resource.data.userId == request.auth.uid)
-        );
+    
+    // Performance Records: Explicit permissions per operation
+    match /Performance_Records/{recordId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
     }
     
     // Legacy support for nested user documents
