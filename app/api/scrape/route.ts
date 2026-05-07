@@ -23,40 +23,49 @@ export async function POST(req: NextRequest) {
     const $ = cheerio.load(html);
     const records: { eventName: string; recordData: string }[] = [];
 
-    // MileSplit usually has Personal Bests in a section with class 'personal-bests' or similar
-    // Based on the research, we look for '.personal-bests' or the specific headers
+    console.log(`Scraping URL: ${url}`);
     
-    $('.personal-bests dt, .personal-bests .event').each((i, el) => {
-      const eventName = $(el).text().trim();
-      const recordData = $(el).next('dd').text().trim() || $(el).siblings('.mark').text().trim();
-      
-      if (eventName && recordData) {
-        records.push({ eventName, recordData });
-      }
-    });
+    // MileSplit structure often uses 'personal-bests' class
+    // We'll try several common selectors found on MileSplit/FloSports sites
+    const selectors = [
+      '.personal-bests dt',
+      '.personal-bests .event',
+      '#personal-bests dt',
+      '.athlete-records dt',
+      '.stats .event'
+    ];
 
-    // Fallback parser if the structure is different
-    if (records.length === 0) {
-      // Look for any table-like structure that might contain PRs
-      $('tr').each((i, el) => {
-        const text = $(el).text().toLowerCase();
-        if (text.includes('personal best') || text.includes('personal record')) {
-          // This might be a header, skip or handle
+    selectors.forEach(selector => {
+      $(selector).each((i, el) => {
+        const eventName = $(el).text().trim();
+        // Record data is usually the next dd or a sibling with mark/time class
+        let recordData = $(el).next('dd').text().trim();
+        if (!recordData) recordData = $(el).siblings('.mark').text().trim();
+        if (!recordData) recordData = $(el).siblings('.time').text().trim();
+        if (!recordData) recordData = $(el).parent().find('.mark').text().trim();
+        
+        if (eventName && recordData) {
+          records.push({ eventName, recordData });
         }
       });
-      
-      // Attempt to find dt/dd pairs globally if .personal-bests class is missing
-      $('dt').each((i, el) => {
-        const eventName = $(el).text().trim();
-        const recordData = $(el).next('dd').text().trim();
-        if (eventName && recordData && (recordData.includes(':') || recordData.includes('.') || /\d/.test(recordData))) {
-            // Heuristic to avoid grabbing non-PR data
-            if (eventName.length < 50 && recordData.length < 20) {
-                records.push({ eventName, recordData });
-            }
+    });
+
+    // Fallback: Look for any table rows that look like PRs
+    if (records.length === 0) {
+      $('tr').each((i, el) => {
+        const cells = $(el).find('td');
+        if (cells.length >= 2) {
+          const eventName = $(cells[0]).text().trim();
+          const recordData = $(cells[1]).text().trim();
+          // Heuristic: PR data usually contains numbers and often colons/dots
+          if (eventName && recordData && /\d/.test(recordData) && eventName.length < 50) {
+            records.push({ eventName, recordData });
+          }
         }
       });
     }
+
+    console.log(`Found ${records.length} potential records`);
 
     // De-duplicate records
     const uniqueRecords = Array.from(new Map(records.map(item => [item.eventName, item])).values());
