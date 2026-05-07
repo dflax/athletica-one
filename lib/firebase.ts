@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getAuth, Auth } from "firebase/auth";
-import { getFirestore, Firestore } from "firebase/firestore";
+import { getFirestore, Firestore, initializeFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -26,4 +26,8 @@ try {
 }
 
 export const auth: Auth = (app) ? getAuth(app) : {} as Auth;
-export const db: Firestore = (app) ? getFirestore(app) : {} as Firestore;
+
+// Initialize Firestore with settings to bypass potential network/CORS issues
+export const db: Firestore = (app) ? initializeFirestore(app, {
+  experimentalForceLongPolling: true,
+}) : {} as Firestore;
