@@ -186,7 +186,7 @@ export const PersonalRecordsTile: React.FC<PersonalRecordsTileProps> = ({ user }
               value={eventName}
               onChange={(e) => setEventName(e.target.value)}
               placeholder="e.g. 100m, High Jump"
-              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 bg-white"
               required
             />
           </div>
@@ -197,7 +197,7 @@ export const PersonalRecordsTile: React.FC<PersonalRecordsTileProps> = ({ user }
               value={recordData}
               onChange={(e) => setRecordData(e.target.value)}
               placeholder={"e.g. 13.1s, 5'10\""}
-              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 bg-white"
               required
             />
           </div>
@@ -226,7 +226,7 @@ export const PersonalRecordsTile: React.FC<PersonalRecordsTileProps> = ({ user }
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://nj.milesplit.com/athletes/..."
-              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 bg-white"
               required
             />
           </div>
