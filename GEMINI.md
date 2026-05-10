@@ -34,7 +34,7 @@ Instead, fix the issue and then commit.
 
 ## Tech Stack
 *   **Framework**: Next.js 14 (App Router)
-*   **Hosting**: Vercel (auto-deploys from GitHub)
+*   **Hosting**: Netlify (auto-deploys from GitHub)
 *   **Database/Auth**: Firebase (Firestore & Authentication)
 *   **Styling**: Tailwind CSS
 *   **Language**: TypeScript
@@ -71,14 +71,15 @@ athletica-one/
 │   ├── layout.tsx
 │   └── page.tsx
 ├── lib/
-│   ├── firebase.js
-│   └── useAuth.js
+│   ├── firebase.ts
+│   └── useAuth.ts
 ├── public/
 │   ├── file.svg
 │   ├── globe.svg
 │   ├── next.svg
 │   ├── vercel.svg
 │   └── window.svg
+├── .env.example
 ├── .gitignore
 ├── AGENTS.md
 ├── CLAUDE.md
