@@ -18,7 +18,7 @@ This project is the Practicum effort of David Lebovich for his work at Emet Clas
 - **Phase 1 Session 1.12**: Identified and documented required Firestore Security Rules in `GEMINI.md` to support the `Performance_Records` collection and multi-tenant data partitioning.
 - **Phase 1 Session 1.14**: Refined Firestore Security Rules to support querying. The previous version only worked for single document lookups.
 - **Phase 1 Session 1.15**: Enabled `experimentalForceLongPolling` in Firestore initialization to resolve "access control checks" and connection errors caused by network/CORS restrictions.
-- **Phase 1 Session 1.16**: Transitioned hosting from Vercel to Netlify. Updated documentation and created netlify.toml.
+- **Phase 1 Session 1.16**: Transitioned hosting from Vercel to Netlify, added netlify.toml, and configured environment variables on Netlify.
 
 ## Project Vision
 To create a responsive web application that serves as a central hub for scholastic athletes to manage their daily performance, nutrition, and scheduling. The app will transition from a personal tool to a multi-role platform for coaches, parents, and fans.
