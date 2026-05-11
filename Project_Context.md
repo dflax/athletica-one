@@ -21,6 +21,7 @@ This project is the Practicum effort of David Lebovich for his work at Emet Clas
 - **Phase 1 Session 1.16**: Transitioned hosting from Vercel to Netlify, added netlify.toml, and configured environment variables on Netlify.
 - **Phase 1 Session 1.17**: Bypassed false positive Netlify secret scans for public Firebase environment variables by updating netlify.toml.
 - **Phase 1 Session 1.18**: Refactored Firestore data structure to nest `Performance_Records` under user documents (`users/{userId}/Performance_Records`). Updated `lib/records.ts`, `PersonalRecordsTile` component, and Firestore security rules in `GEMINI.md`. Created a migration API route at `/api/migrate-records`.
+- **Phase 1 Session 1.19**: Implemented Athlete To-Do List feature. Created `lib/todos.ts` service with Firestore integration, `TodoTile` component with checkbox toggles and hover-to-delete, and updated Firestore security rules. Established testing infrastructure with Vitest and added unit tests for `todos` and `records` services.
 
 ## Project Vision
 To create a responsive web application that serves as a central hub for scholastic athletes to manage their daily performance, nutrition, and scheduling. The app will transition from a personal tool to a multi-role platform for coaches, parents, and fans.

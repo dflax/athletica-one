@@ -55,6 +55,11 @@ service cloud.firestore {
       match /Performance_Records/{recordId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
       }
+
+      // Todo Items nested under user
+      match /Todo_Items/{todoId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
     }
   }
 }

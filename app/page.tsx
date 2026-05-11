@@ -5,6 +5,7 @@ import { auth } from '@/lib/firebase';
 import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { useAuth } from '@/lib/useAuth';
 import { PersonalRecordsTile } from '@/components/PersonalRecordsTile';
+import { TodoTile } from '@/components/TodoTile';
 
 export default function Dashboard() {
   const { user, loading } = useAuth();
@@ -56,6 +57,9 @@ export default function Dashboard() {
 
           {/* Personal Records Tile */}
           <PersonalRecordsTile user={user} />
+
+          {/* To Do List Tile */}
+          <TodoTile user={user} />
 
           {/* Quick Actions Card */}
           <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
