@@ -9,8 +9,11 @@ import {
 import { db } from '@/lib/firebase';
 
 export async function GET(req: NextRequest) {
-  if (!db) {
-    return NextResponse.json({ error: 'Database not initialized' }, { status: 500 });
+  if (!db || !('type' in db)) {
+    return NextResponse.json({ 
+      error: 'Database not initialized. Check your environment variables.',
+      configValid: !!process.env.NEXT_PUBLIC_FIREBASE_API_KEY
+    }, { status: 500 });
   }
 
   try {
