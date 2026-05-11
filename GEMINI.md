@@ -47,16 +47,14 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Performance Records: Explicit permissions per operation
-    match /Performance_Records/{recordId} {
-      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
-      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
-      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
-    }
-    
-    // Legacy support for nested user documents
-    match /users/{userId}/{document=**} {
+    // User-owned data structure
+    match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // Performance Records nested under user
+      match /Performance_Records/{recordId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
     }
   }
 }

@@ -28,7 +28,7 @@ export async function addPersonalRecord(userId: string, eventName: string, recor
   }
   
   try {
-    const docRef = await addDoc(collection(db, COLLECTION_NAME), {
+    const docRef = await addDoc(collection(db, 'users', userId, COLLECTION_NAME), {
       userId,
       eventName,
       recordData,
@@ -53,7 +53,7 @@ export async function getPersonalRecords(userId: string): Promise<PersonalRecord
     console.log(`Fetching records for userId: ${userId}`);
     console.log(`Current Auth User: ${currentUser ? currentUser.uid : 'NOT LOGGED IN'}`);
 
-    const q = query(collection(db, COLLECTION_NAME), where("userId", "==", userId));
+    const q = query(collection(db, 'users', userId, COLLECTION_NAME));
     const querySnapshot = await getDocs(q);
     console.log(`Found ${querySnapshot.size} documents`);
     
@@ -71,13 +71,13 @@ export async function getPersonalRecords(userId: string): Promise<PersonalRecord
   }
 }
 
-export async function deletePersonalRecord(recordId: string) {
+export async function deletePersonalRecord(userId: string, recordId: string) {
   if (!db || !('type' in db)) {
     throw new Error("Database not initialized");
   }
 
   try {
-    await deleteDoc(doc(db, COLLECTION_NAME, recordId));
+    await deleteDoc(doc(db, 'users', userId, COLLECTION_NAME, recordId));
   } catch (error) {
     console.error("Error deleting personal record: ", error);
     throw error;

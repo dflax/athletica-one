@@ -119,7 +119,7 @@ export const PersonalRecordsTile: React.FC<PersonalRecordsTileProps> = ({ user }
 
     setIsSubmitting(true);
     try {
-      await deletePersonalRecord(recordToDelete.id);
+      await deletePersonalRecord(user.uid, recordToDelete.id);
       setIsDeleteModalOpen(false);
       setRecordToDelete(null);
       await fetchRecords();

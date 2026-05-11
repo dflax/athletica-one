@@ -20,6 +20,7 @@ This project is the Practicum effort of David Lebovich for his work at Emet Clas
 - **Phase 1 Session 1.15**: Enabled `experimentalForceLongPolling` in Firestore initialization to resolve "access control checks" and connection errors caused by network/CORS restrictions.
 - **Phase 1 Session 1.16**: Transitioned hosting from Vercel to Netlify, added netlify.toml, and configured environment variables on Netlify.
 - **Phase 1 Session 1.17**: Bypassed false positive Netlify secret scans for public Firebase environment variables by updating netlify.toml.
+- **Phase 1 Session 1.18**: Refactored Firestore data structure to nest `Performance_Records` under user documents (`users/{userId}/Performance_Records`). Updated `lib/records.ts`, `PersonalRecordsTile` component, and Firestore security rules in `GEMINI.md`. Created a migration API route at `/api/migrate-records`.
 
 ## Project Vision
 To create a responsive web application that serves as a central hub for scholastic athletes to manage their daily performance, nutrition, and scheduling. The app will transition from a personal tool to a multi-role platform for coaches, parents, and fans.
@@ -41,8 +42,8 @@ The application is designed to be highly responsive, catering primarily to athle
 ### Data Architecture
 The structure is designed to be multi-tenant ready by utilizing unique User IDs (UIDs) for all data collections.
 - **Users**: Collection for user profiles.
+  - **Performance_Records**: Sub-collection nested under each user document.
 - **Training_Logs**: Collection linked by UID.
-- **Performance_Records**: Collection linked by UID.
 - **Nutrition_Data**: Collection linked by UID.
 
 ## Functional Requirements Specification
